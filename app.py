@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from PIL import Image
 
 im = Image.open("./photos/ghandi.jpg").convert('RGB')
@@ -35,11 +37,17 @@ def construct_brightness_matrix(rgb_array):
 
 
 
-array = generate_pixel_array()
-rgb_array = construct_brightness_matrix(array)
+rgb_array = generate_pixel_array()
+lum_array = construct_brightness_matrix(rgb_array)
 
 #print(rgb_array)
 
-chars = "`^\\\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+chars = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 
-print(chars)
+final_array = []
+for h in lum_array:
+    line_array = [ round(w / 5) for w in h ]
+    ascii_array = [ chars[w] for w in line_array ]
+    final_array.append(ascii_array)
+
+print(final_array)
